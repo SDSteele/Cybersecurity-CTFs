@@ -1,7 +1,14 @@
-# OverTheWire: Bandit Level 0
+Bandit 0 → 1
 
-## 📝 Challenge Summary  
-Learn to use SSH 
+Challenge: Log into the game using SSH.
 
-## 🔑 Solution Steps  
-1. SSH connection to given login with correct password
+Steps:
+
+ssh bandit0@bandit.labs.overthewire.org -p 2220
+# password: [redacted]
+
+
+Answer:
+Password [redacted]
+
+Lesson Learned: Basic SSH login with provided credentials.
