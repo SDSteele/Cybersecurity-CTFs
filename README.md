@@ -12,9 +12,19 @@ Beginner-friendly Linux and cybersecurity challenges.
 Progress: **Currently on Bandit Level 12**  
 
 - [Bandit-00](OverTheWire/Bandit/Bandit-00.md)  
-- [Bandit-01](OverTheWire/Bandit/Bandit-01.md)  
-- ...  
-- [Bandit-12](OverTheWire/Bandit/Bandit-12.md)  
+- [Bandit-01](OverTheWire/Bandit/Bandit-01.md)
+- [Bandit-02](OverTheWire/Bandit/Bandit-02.md)
+- [Bandit-03](OverTheWire/Bandit/Bandit-03.md)
+- [Bandit-04](OverTheWire/Bandit/Bandit-04.md)  
+- [Bandit-05](OverTheWire/Bandit/Bandit-05.md)
+- [Bandit-06](OverTheWire/Bandit/Bandit-06.md)
+- [Bandit-07](OverTheWire/Bandit/Bandit-07.md)
+- [Bandit-08](OverTheWire/Bandit/Bandit-08.md)
+- [Bandit-09](OverTheWire/Bandit/Bandit-09.md)
+- [Bandit-10](OverTheWire/Bandit/Bandit-10.md)
+- [Bandit-11](OverTheWire/Bandit/Bandit-11.md)
+- [Bandit-12](OverTheWire/Bandit/Bandit-12.md)
+
 
 ---
 
