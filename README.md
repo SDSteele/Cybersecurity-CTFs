@@ -9,7 +9,7 @@ Each writeup demonstrates problem-solving, technical skills, and lessons learned
 
 ### 🔐 OverTheWire (Bandit)  
 Beginner-friendly Linux and cybersecurity challenges.  
-Progress: **Currently on Bandit Level 12**  
+Progress: **Currently on Bandit Level 13**  
 
 - [Bandit-00](OverTheWire/Bandit/Bandit-00.md)               |   - [Bandit-07](OverTheWire/Bandit/Bandit-07.md)
 - [Bandit-01](OverTheWire/Bandit/Bandit-01.md)                |  - [Bandit-08](OverTheWire/Bandit/Bandit-08.md)                 
