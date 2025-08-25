@@ -39,4 +39,13 @@ Targeted labs focused on exploitation and privilege escalation.
 
 ---
 
+🛡️ TryHackMe  
+Guided, room-based cybersecurity challenges across all skill levels.  
+Progress: Working through rooms in the *Pre Security* and *Offensive Pentesting* paths.  
+
+Room: Introduction to Researching  
+(And more will be added as I progress.)
+
+---
+
 ⚡ *This repo will grow as I progress through more labs and platforms.*  
