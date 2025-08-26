@@ -43,7 +43,7 @@ Targeted labs focused on exploitation and privilege escalation.
 Guided, room-based cybersecurity challenges across all skill levels.  
 Progress: Working through rooms in the *Pre Security* and *Offensive Pentesting* paths.  
 
-- Room: Introduction to Researching  
+- Room: Neighbour  
 (And more will be added as I progress.)
 
 ---
