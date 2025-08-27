@@ -62,7 +62,15 @@ let's override it then, let's try sudo ls /root and see what that holds. The thi
 <img width="1282" height="291" alt="image" src="https://github.com/user-attachments/assets/621be23b-bb6e-4d1a-85e7-e3a330be7788" />
 
 
-
+Also, the code we found of above, if we decode it repeatedly we get: 
+Vm1wR1UxTnRWa2RUV0d4VFlrZFNjRlV3V2t0alJsWnlWbXQwVkUxV1duaFZNakExVkcxS1NHVkliRmhoTVhCb1ZsWmFWMVpWTVVWaGVqQT0==
+→ VmpGU1NtVkdTWGxTYkdScFUwWktjRlZyVmt0VE1WWnhVMjA1VG1KSGVIbFhhMXBoVlZaV1ZVMUVhejA=
+→ VjFSSmVGSXlSbGRpU0ZKcFVrVktTMVZxU205TmJHeHlXa1phVVZWVU1Eaz0
+→ V1RJeFIyRldiSFJpUkVKS1VqSm9NbGxyWkZaUVVUMDk=
+→ WTIxR2FWbHRiREJKUjJoMllrZFZQUT09
+→ Y21GaVltbDBJR2h2YkdVPQ==
+→ cmFiYml0IGhvbGU=
+→ rabbit hole
 
 
 
