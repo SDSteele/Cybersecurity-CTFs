@@ -43,8 +43,9 @@ Targeted labs focused on exploitation and privilege escalation.
 Guided, room-based cybersecurity challenges across all skill levels.  
 Progress: Working through rooms in the *Pre Security* and *Offensive Pentesting* paths.  
 
-- Room: Neighbour  
-(And more will be added as I progress.)
+- Rooms:
+- [Neighbour](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/TryHackMe/Neighbour.md)
+- [Pickle Rick](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/TryHackMe/Pickle%20Rick.md)
 
 ---
 
