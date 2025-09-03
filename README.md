@@ -28,9 +28,9 @@ More advanced penetration testing and exploitation labs.
 (Will be added as I progress.)  
 
 - Starting Point Rooms
-  - [Meow]()
-  - [Fawn]()
-  - [Dancing]()
+  - [Meow](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/meow.md)
+  - [Fawn](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/fawn.md)
+  - [Dancing](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Dancing.md)
 
 ---
 
