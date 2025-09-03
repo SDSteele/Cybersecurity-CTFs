@@ -31,7 +31,7 @@ More advanced penetration testing and exploitation labs.
   - [Meow](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/meow.md)
   - [Fawn](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/fawn.md)
   - [Dancing](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Dancing.md)
-
+  - [Redeemer](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Redeemer.md)
 ---
 
 ### 🛡️ TryHackMe  
