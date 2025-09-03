@@ -27,15 +27,10 @@ Progress: **Currently on Bandit Level 15**
 More advanced penetration testing and exploitation labs.  
 (Will be added as I progress.)  
 
-- [Machine Name](HackTheBox/Machine-Name.md)  
-
----
-
-### 🧪 VulnLab  
-Targeted labs focused on exploitation and privilege escalation.  
-(Will be added as I progress.)  
-
-- [Lab Name](VulnLab/Lab-Name.md)  
+- Starting Point Rooms
+  - [Meow]()
+  - [Fawn]()
+  - [Dancing]()
 
 ---
 
@@ -48,5 +43,15 @@ Progress: Working through rooms in the *Pre Security* and *Offensive Pentesting*
 - [Pickle Rick](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/TryHackMe/Pickle%20Rick.md)
 
 ---
+
+### 🧪 VulnLab  
+Targeted labs focused on exploitation and privilege escalation.  
+(Will be added as I progress.)  
+
+- [Lab Name](VulnLab/Lab-Name.md)  
+
+---
+
+
 
 ⚡ *This repo will grow as I progress through more labs and platforms.*  
