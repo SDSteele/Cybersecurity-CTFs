@@ -27,11 +27,9 @@ Progress: **Currently on Bandit Level 15**
 More advanced penetration testing and exploitation labs.  
 (Will be added as I progress.)  
 
-- Starting Point Rooms
-  - [Meow](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/meow.md)
-  - [Fawn](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/fawn.md)
-  - [Dancing](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Dancing.md)
-  - [Redeemer](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Redeemer.md)
+- Starting Point Rooms: [Meow](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/meow.md), [Fawn](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/fawn.md), [Dancing](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Dancing.md), [Redeemer](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Redeemer.md)
+
+ - [Cap](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Cap.md)
 ---
 
 ### 🛡️ TryHackMe  
