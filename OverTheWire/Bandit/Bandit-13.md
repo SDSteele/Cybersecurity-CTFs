@@ -1,8 +1,10 @@
-Bandit 13 → 14
+## Bandit 13 → 14
+---
 
+## Steps:
 
-Steps:
+## Lesson Learned
 
-Lesson Learned
+---
 
-original notes:
+## Original Notes:
