@@ -39,7 +39,7 @@ Progress: Working through rooms in the *Pre Security* and *Offensive Pentesting*
 - Rooms:
 - [Neighbour](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/TryHackMe/Neighbour.md)
 - [Pickle Rick](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/TryHackMe/Pickle%20Rick.md)
-
+- [Lookup](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/TryHackMe/Lookup.md)
 ---
 
 ### 🧪 VulnLab  
