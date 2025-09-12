@@ -18,7 +18,7 @@
 - Exploiting file capabilities (cap_setuid) using Python to gain root
 
 **Notes:**  
-- Target IP: `10.10.10.245`  
+- Target IP: `[REDACTED]`  
 - Initial scans: `nmap` and `rustscan` → ports open: **21 (FTP)**, **22 (SSH)**, **80 (HTTP)**.  
   - FTP: `vsftpd 3.0.3`  
   - SSH: `OpenSSH 8.2p1`  
@@ -33,7 +33,7 @@
   - Question 2 answer: `data` (the `[something]` in the path is `data`)  
   - By changing the ID you can view other users' snapshots (Question 3: **yes** — can iterate IDs 0..10)
 
-- Inspecting PCAP ID 40 in Wireshark (source `192.168.196.1` → dest `192.168.196.16`) revealed an FTP credential:  
+- Inspecting PCAP ID 40 in Wireshark (source `[REDACTED]` → dest `[REDACTED]`) revealed an FTP credential:  
   - `Buck3tH4TF0RM3!` — used to log into SSH as Nathan.
 
 **Answers to challenge questions:**  
@@ -43,7 +43,7 @@
 4. What is the ID of the PCAP file that contains sensitive data? **0**  
 5. Which application layer protocol in the pcap file can the sensitive data be found in? **FTP**  
 6. We've collected Nathan's FTP password. On what other service does this password work? **SSH**  
-7. user flag (from Nathan's account): **`35eaae15f1ef0f055e3b983eae63c5aa`**  
+7. user flag (from Nathan's account): **`[REDACTED]`**  
 8. What is the full path to the binary on this machine that has special capabilities that can be abused to obtain root privileges? **`/usr/bin/python3.8`**
 
 **Privilege escalation (linPEAS & capabilities):**  
@@ -67,7 +67,7 @@
   Result: spawned shell as **root**.
 
 **Root flag:**  
-- Root flag found: **`f77870641aea641726ee29ee9879a5e4`**
+- Root flag found: **`[REDACTED]`**
 
 **Takeaways:**  
 - IDORs are low-hanging fruit — always test incrementing IDs and object identifiers.  
