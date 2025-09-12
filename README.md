@@ -45,7 +45,7 @@ Progress: Working through rooms in the *Pre Security* and *Offensive Pentesting*
 ### 🩻 Pwnable.kr
 Unuided, room-based cybersecurity challenges across all skill levels.  
 
-- [fd]( )
+- [fd](https://github.com/SDSteele/Cybersecurity-CTFs/edit/main/pwnable.kr/fd.md)
 
 ---
 
