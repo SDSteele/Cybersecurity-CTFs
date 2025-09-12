@@ -1,9 +1,11 @@
 # CAP Room
 
-### Challenge Rating: Medium
+### Challenge Rating: Easy
 
 **Challenge:**  
-Target is a security dashboard web app that includes features like security snapshots (PCAPs), IP and network status, and user activity. The machine tests reconnaissance, web enumeration, IDOR (Insecure Direct Object Reference), network traffic analysis (PCAP/FTP), credential reuse, and Linux privilege escalation via binary capabilities.
+- Cap is an easy difficulty Linux machine running an HTTP server that performs administrative functions including performing network captures. Improper controls result in Insecure Direct Object Reference (IDOR) giving access to another user's capture. The capture contains plaintext credentials and can be used to gain foothold. A Linux capability is then leveraged to escalate to root. 
+ 
+- Target is a security dashboard web app that includes features like security snapshots (PCAPs), IP and network status, and user activity. The machine tests reconnaissance, web enumeration, IDOR (Insecure Direct Object Reference), network traffic analysis (PCAP/FTP), credential reuse, and Linux privilege escalation via binary capabilities.
 
 **Skills:**  
 - Network scanning (`nmap`, `rustscan`)  
