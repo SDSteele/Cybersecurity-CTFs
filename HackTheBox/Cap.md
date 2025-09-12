@@ -1,4 +1,4 @@
-# Security Dashboard CTF Journal Entry
+# CAP Room
 
 ### Challenge Rating: Medium
 
