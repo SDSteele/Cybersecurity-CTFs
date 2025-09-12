@@ -55,6 +55,7 @@ In this challenge, the goal is to learn how Linux file descriptors work. By anal
 
 ---
 Original Notes:
+<details>
 logged in with ssh fd@pwnable.kr -p2222
 
 Challenge rating: Onsite ([Toddler's Bottle]) but marked MEDIUM on other sites
@@ -106,4 +107,4 @@ Ok, so the reason for that is because when we enter 4660 or what 0x1234 was, it 
 BANG we got the key!
 
 it's Mama! Now_I_understand_what_file_descriptors_are!
-
+</details>
