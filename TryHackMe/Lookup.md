@@ -73,6 +73,7 @@ Through "Lookup," hackers can master the art of reconnaissance, scanning, and en
 
 ---
 orginial notes:
+<details>
     lookup notes
     ip = [redacted]
     tried a bunch of different things I don't quite udnerstand, and some of the walkthroughs don't help, htey just jump to where they did the sutff. which sucks.
@@ -168,5 +169,5 @@ BANG! We're in! found the root pass
 "[redacted]"
 
 
-
+</details>
 
