@@ -53,8 +53,8 @@ Unuided, room-based cybersecurity challenges across all skill levels.
 
 ### 🕵️ Metasploitable2
 Exploring Metasploitable2:
-- [PenTests]()
-- [Blue Team Corrections]()
+- [PenTests](https://github.com/SDSteele/Cybersecurity-CTFs/tree/main/Metasploitable2/PenTesting_Reports)
+- [Blue Team Corrections](https://github.com/SDSteele/Cybersecurity-CTFs/tree/main/Metasploitable2/Blue_Team_Corrections)
 
 - [Lab Name](VulnLab/Lab-Name.md)
 
