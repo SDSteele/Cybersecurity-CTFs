@@ -1,4 +1,128 @@
-ip “10.10.11.87”
+# HTB Room Notes — expressway (10.10.11.87)
+
+**Target IP:** `[REDACTED]`  
+**Room:** expressway  
+**Date:** 2025-09-13  
+**Author:** PortMortem
+
+---
+
+## Summary / Objective
+Quick reconnaissance and exploitation notes for HackTheBox machine `[REDACTED]`. Initial scans were unreliable (required VPN/machine restart). After discovering an IPsec/IKE responder on UDP/500, aggressive IKE probing and PSK cracking yielded valid credentials for the `ike` user. Those credentials provided an initial foothold (SSH). Local enumeration revealed a vulnerable `sudo` binary (`/usr/local/bin/sudo` with version 1.9.17), which was exploited using a public PoC (CVE-2025-32463) to obtain root.
+
+**Outcome:**  
+- User flag: `[REDACTED]`  
+- Root artifact: `[REDACTED]`
+
+---
+
+## Skills exercised
+- Network scanning (nmap, rustscan, zenmap)  
+- UDP/IKE discovery and fingerprinting (ike-scan)  
+- Packet capture and analysis (tcpdump, Wireshark)  
+- Aggressive-mode IKE probing and PSK parameter extraction  
+- Offline PSK cracking (psk-crack with wordlists)  
+- SSH authentication & foothold acquisition  
+- Local enumeration and binary discovery (which, sudo -V)  
+- Vulnerability research (CVE lookup, PoC discovery)  
+- Local privilege escalation using a PoC exploit
+
+---
+
+## Challenges encountered
+- Initial scans (rustscan / zenmap) were unreliable — required restarting the VPN and/or switching attacking VM.  
+- UDP services require specialized tools; initial TCP-only scans missed the IKE responder on UDP/500.  
+- PoC exploitation required understanding local binary placement (`/usr/local/bin/sudo`) and confirming versioning before running any exploit code.
+
+---
+
+## Tools & commands (relevant)
+> Note: Run only in authorized/test environments.
+```bash
+# TCP/TCP discovery
+nmap -sC -sV -oN nmap_initial [REDACTED]
+rustscan -a [REDACTED] -r 1-65535
+
+# UDP/IKE discovery (recommended)
+sudo ike-scan -A expressway.htb
+sudo ike-scan expressway.htb
+
+# Capture IKE traffic while probing
+sudo tcpdump -i tun0 udp port 500 or 4500 -w ike_capture.pcap
+# In another terminal:
+sudo ike-scan -A [REDACTED]
+
+# Extract PSK parameters and crack (psk-crack shipped with ike-scan)
+sudo psk-crack psk.txt -d /usr/share/wordlists/rockyou.txt
+
+# SSH (after obtaining credentials)
+ssh ike@expressway.htb
+
+# Local checks
+sudo -l
+sudo -V
+which sudo
+```
+
+---
+
+## Walkthrough / Steps performed (chronological)
+1. Conducted initial TCP scans; experienced intermittent failures; restarted VPN and attacking VM to re-establish consistent connectivity.  
+2. Noted that UDP port 500 responded; switched to `ike-scan` for IKE fingerprinting.  
+3. Ran `ike-scan -A expressway.htb` and captured aggressive-mode output identifying `ike@expressway.htb` and SA parameters (3DES, SHA1, modp1024, PSK). Captured traffic with `tcpdump` for offline work.  
+4. Extracted PSK parameters and used `psk-crack` with a dictionary (rockyou) to identify PSK `freakingrockstarontheroad`.  
+5. Used the discovered PSK/password to SSH as `ike@expressway.htb` and retrieved user flag `[REDACTED]`.  
+6. Performed local enumeration: confirmed `sudo` version 1.9.17 and location `/usr/local/bin/sudo`.  
+7. Located public PoC for CVE-2025-32463, adapted it in the lab environment and obtained root (`[REDACTED]`).
+
+---
+
+## IKE technical notes (concise)
+- IKE runs over UDP port 500 (and 4500 for NAT-T). It negotiates IPsec SAs and authenticates peers (PSK, cert, EAP).  
+- Aggressive mode can leak identity/vendor information; useful for fingerprinting.  
+- Weak parameters observed (3DES, SHA1, DH group 2) are legacy and can facilitate offline attacks.  
+- `ike-scan` + `tcpdump` + `psk-crack` is a common workflow for enumerating and cracking PSK-based IKE endpoints in labs.
+
+---
+
+## Observations & lessons learned
+- If scans behave oddly, first try restarting the VPN/attacking machine — scan connectivity issues can be environmental.  
+- Use UDP-aware tooling for UDP services; `ike-scan` is essential for IKE/IPsec discovery.  
+- Capture probe traffic for offline analysis and cracking.  
+- Confirm binary paths and versions before using public PoCs; read PoC code and understand mechanism.
+
+---
+
+## Artifacts / evidence (store securely)
+- `ike_capture.pcap` — pcap of IKE exchanges.  
+- `psk_parameters.txt` — parameters exported for psk-crack.  
+- `psk_crack_output.txt` — output showing PSK `freakingrockstarontheroad`.  
+- `ssh_session_ike.txt` — SSH session log.  
+- `poC_sudo_notes.txt` — notes used to run PoC locally in lab (sanitized).
+
+---
+
+## References
+- `ike-scan` manual & homepage: http://www.nta-monitor.com/tools/ike-scan/  
+- Public PoC: `CVE-2025-32463` repository (example): https://github.com/kh4sh3i/CVE-2025-32463  
+- Wireshark guides for IKE/IPsec analysis.  
+- HTB/CTF writeups for IKE/PSK cracking workflows.
+
+---
+
+## Final outcome
+- **User compromise:** `ike@expressway.htb` — password discovered: `[REDACTED]`  
+- **User flag obtained:** `[REDACTED]`  
+- **Root artifact obtained:** `[REDACTED]`
+
+---
+
+*End of notes — redact sensitive artifacts before sharing outside your authorized team.*
+
+---
+orginial notes:
+<details>
+ip “[REDACTED]”
 
 no info on it, lets see what's up
 
@@ -241,7 +365,7 @@ so ike@express.htb has a password of “freakingrockstarontheroad”
 
 and we're in!
 
-user flag: “5e0bc7960d69ea9b1e64dc8c5f829ade”
+user flag: “[REDACTED]”
 
 
 so we get inside here and we can stasrt checking stuff out. so sudo -l and we don't have permissions without a password
@@ -300,4 +424,5 @@ now we have root access!
 
 to do this we created a file, changed the permissions and moved on
 
-691f87d5510e282bf6c0da395a7d6cb4
+[REDACTED]
+</details>
