@@ -110,8 +110,6 @@ Provided the discovered password to the running program. The binary responded wi
 
 ## 9. Reproducible commands (reference)
 ```bash
-unzip challenge.zip
-cd challenge_dir
 file pass
 filetype -f pass
 checksec --file=pass
@@ -125,8 +123,6 @@ strings pass | grep -i 's3cr3t\|password\|HTB'
 ## 10. Artifacts / evidence
 - Binary: `pass` (original)  
 - Extracted strings output: `strings_pass.txt`  
-- Execution log: `pass_run.log` (recorded interactive run)
-
 ---
 
 orginial notes:
