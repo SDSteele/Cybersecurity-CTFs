@@ -30,6 +30,7 @@ More advanced penetration testing and exploitation labs.
 - Starting Point Rooms: [Meow](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/meow.md), [Fawn](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/fawn.md), [Dancing](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Dancing.md), [Redeemer](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Redeemer.md)
 
  - [Cap](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Cap.md)
+ - [SpookyPass](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/SpookyPass.md)
 ---
 
 ### 🛡️ TryHackMe  
