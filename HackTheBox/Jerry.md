@@ -22,7 +22,7 @@ Tools used: `rustscan`, `zenmap` (Nmap GUI), a personal `speedscan.py`, `curl`, 
 Basic steps & observations:
 - Confirmed the web service at `http://10.10.10.95:8080`.
 - Found Tomcat Manager application at `/manager/html` which requires authentication.
-- Default creds did not work, but the 401 Unauthorized message hinted that credentials are stored in `conf/tomcat-users.xml` and even provided an example of `tomcat:s3cret` as a typical manager credential. Inspection revealed `tomcat` / `s3cret` worked.
+- Default creds did not work, but the 401 Unauthorized message hinted that credentials are stored in `conf/tomcat-users.xml` and even provided an example of `[REDACTED]` as a typical manager credential. Inspection revealed `[REDACTED]` / `[REDACTED]` worked.
 
 ---
 
@@ -33,7 +33,7 @@ Basic steps & observations:
 4. **Deploy WAR** through Manager GUI to `http://10.10.10.95:8080/portmortem/` (example).  
 5. **Listen for reverse connection** using `nc -lvnp 4445` and receive a Windows shell.  
 6. **Privilege level:** The shell returned `NT AUTHORITY\SYSTEM` (full system privileges).  
-7. **Enumerate filesystem** and retrieve flags from `C:\Users\Administrator\Desktop\flags\user.txt` and `root.txt`.
+7. **Enumerate filesystem** and retrieve flags from `[REDACTED]` and `[REDACTED]`.
 
 ---
 
@@ -68,7 +68,7 @@ nc -lvnp 4445
 ```
 
 **Upload & deploy WAR**
-- Log into Tomcat Manager with `tomcat:s3cret` at `/manager/html`.  
+- Log into Tomcat Manager with `[REDACTED]` at `/manager/html`.  
 - Use the "Upload WAR" or "Deploy" UI to upload `portmortem.war`.  
 - Browse to `http://10.10.10.95:8080/portmortem/` (or the context path shown by Manager) to trigger the JSP and spawn the reverse shell.
 
@@ -98,13 +98,13 @@ type C:\Users\Administrator\Desktop\flags\root.txt
 - **Open TCP port:** `8080` (HTTP/Tomcat).  
 - **Web server product:** Apache Tomcat.  
 - **Manager path:** `/manager/html` (Tomcat Web Application Manager).  
-- **Working credentials:** `tomcat:s3cret` (username:password).  
+- **Working credentials:** `[REDACTED]` (username:password).  
 - **Uploadable file type via Manager:** `.war` (WAR archive).  
 - **Privilege after exploitation:** `NT AUTHORITY\SYSTEM` (highest Windows privilege).
 
 **Captured flags:**  
-- `user.txt`: `7004dbcef0f854e0fb401875f26ebd00`  
-- `root.txt`: `04a8b36e1545a455393d067e772fe90e`
+- `user.txt`: `[REDACTED]`  
+- `root.txt`: `[REDACTED]`
 
 ---
 
@@ -112,10 +112,10 @@ type C:\Users\Administrator\Desktop\flags\root.txt
 1. **Which TCP port is open on the remote host?** `8080`  
 2. **Which web server is running on the remote host?** `Apache Tomcat`  
 3. **Which relative path leads to the Web Application Manager?** `/manager/html`  
-4. **Valid username:password for Tomcat Manager?** `tomcat:s3cret`  
+4. **Valid username:password for Tomcat Manager?** `[REDACTED]`  
 5. **Which file type can be uploaded and deployed via Manager?** `WAR file`  
-6. **User flag (user.txt)** `7004dbcef0f854e0fb401875f26ebd00`  
-7. **Administrator flag (root.txt)** `04a8b36e1545a455393d067e772fe90e`
+6. **User flag (user.txt)** `[REDACTED]`  
+7. **Administrator flag (root.txt)** `[REDACTED]`
 
 ---
 
