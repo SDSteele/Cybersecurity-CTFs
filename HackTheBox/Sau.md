@@ -12,8 +12,8 @@
 Chained SSRF in *Request Baskets* (CVE-2023-27163) → reach internal Maltrail v0.53 → unauthenticated command injection → reverse shell as `puma` → sudo/systemd pager escape → `root`.
 
 **Flags recovered**
-- **User:** `b19f1eebf68037fd569c8aaf9dfb0d30`  
-- **Root:** `b46e1a8fb8e2f84c172066ac43581287`
+- **User:** `[REDACTED]`  
+- **Root:** `[REDACTED]`
 
 ---
 
@@ -164,13 +164,13 @@ systemctl --version
 - After executing the pager-escape, you become root and can read root flag:
 ```
 cat /root/root.txt
-# b46e1a8fb8e2f84c172066ac43581287
+# [REDACTED]
 ```
 
 **User flag**
 ```
 cat /home/puma/.../user.txt
-# b19f1eebf68037fd569c8aaf9dfb0d30
+# [REDACTED]
 ```
 
 ---
@@ -243,18 +243,7 @@ cat /root/root.txt
 
 ---
 
-## 11) Notes & artifacts
-
-**Artifacts to keep (examples)**
-- `ike_capture.pcap` (not relevant here) / HTTP request logs from basket
-- `exploit.py` used for Maltrail RCE (source)
-- Reverse shell transcripts / `nc` logs
-- Outputs of `sudo -l`, `systemctl --version`, `id` / `whoami`
-- Captured `user.txt` and `root.txt` flags
-
----
-
-## 12) Lessons learned
+## 11) Lessons learned
 
 - SSRF is a powerful pivot; features that proxy/forward requests are high-value attack surfaces.
 - Local-only services (127.0.0.1) should be considered sensitive and not reachable via user-configurable forwarding.
@@ -263,7 +252,7 @@ cat /root/root.txt
 
 ---
 
-*End of writeup — save findings and evidence to your lab repository. If you want, I can export this file as a downloadable Markdown file or convert to PDF/DOCX.*
+*End of writeup*
 
 ---
 originial notes:
