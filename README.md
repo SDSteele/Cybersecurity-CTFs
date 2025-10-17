@@ -32,6 +32,7 @@ More advanced penetration testing and exploitation labs.
  - [Cap](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Cap.md)
  - [SpookyPass](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/SpookyPass.md)
  - [Jerry](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Jerry.md)
+ - [Sau](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Sau.md)
 ---
 
 ### 🛡️ TryHackMe  
