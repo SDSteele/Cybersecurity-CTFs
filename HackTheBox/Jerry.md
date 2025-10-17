@@ -161,7 +161,7 @@ This lab demonstrates the impact of misconfigured or exposed management interfac
 
 ---
 orginial notes:
-<detail>
+<details>
  Jerry is an easy-difficulty Windows machine that showcases how to exploit Apache Tomcat, leading to an `NT Authority\SYSTEM` shell, thus fully compromising the target. 
  
  ip = “10.10.10.95”
@@ -292,4 +292,4 @@ WAR file
 task6: Submit the flag located on the user's desktop.
 
 task7: Submit the flag located on the administrator's desktop.
-</detail>
+</details>
