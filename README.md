@@ -35,7 +35,14 @@ More advanced penetration testing and exploitation labs.
  - [Sau](https://github.com/SDSteele/Cybersecurity-CTFs/blob/main/HackTheBox/Sau.md)
 ---
 
-### 🛡️ TryHackMe  
+### 🛡️HackTheBox - Blue Team
+Challenges designed for the blue team side of the house
+- [Placeholder]()
+
+
+
+---
+### 🖲️ TryHackMe  
 Guided, room-based cybersecurity challenges across all skill levels.  
 Progress: Working through rooms in the *Pre Security* and *Offensive Pentesting* paths.  
 
