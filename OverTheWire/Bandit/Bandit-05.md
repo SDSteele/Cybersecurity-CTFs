@@ -7,6 +7,7 @@ Steps:
 find . -type f -size 1033c ! -executable
 cat ./maybehere07/.file2
 
+UPDATE: (AUG 2026: simply using find -size l033c found it)
 
 Answer:
 [redacted]
