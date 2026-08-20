@@ -8,6 +8,7 @@ cd inhere
 for i in $(ls); do file $i; done
 cat ./-file07
 
+UPDATE (AUG 2026: Use file ./* to view all file types)
 
 Answer:
 [redacted]
